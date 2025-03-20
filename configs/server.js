@@ -3,6 +3,7 @@ import cors from 'cors'
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
+import apiLimiter from '../src/middleware/validate-requests.js';
 import productRoutes from '../src/product/product.routes.js';
 
 class Server {
@@ -27,6 +28,7 @@ class Server {
         this.app.use(express.json());
         this.app.use(helmet());
         this.app.use(morgan('dev'));
+        this.app.use(apiLimiter);
     };
 
     routes() {
